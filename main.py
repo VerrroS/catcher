@@ -26,30 +26,36 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.left = random.randint(0, size[0])
         self.rect.top = 0
-        self.speed = 5
+        self.vel_x = 5
+        self.vel_y = 5
 
-    def update(self):
-        self.rect.top += self.speed
-        if self.rect.top < 0:
-            self.speed = -self.speed
+
+    def update(self, hit=False):
+        if self.rect.right >= size[0] or self.rect.left <= 0:
+            self.vel_x *= -1
+        if self.rect.top < 0 or hit:
+            self.vel_y *= -1
+        self.rect.top += self.vel_y
+        self.rect.left += self.vel_x
+
 
     def destroy(self):
         self.kill()
-
 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((50, 20))
-        self.image.fill((255, 0, 0))
         self.rect = self.image.get_rect()
         self.rect.top = size[1] - 20
         self.rect.left = 320
         self.speed = 10
         self.score = 0
+        self.level = 1
 
     def update(self, direction):
+        self.image.fill((0, 0, 0))
         if direction == 'left':
             self.rect.left -= self.speed
         if direction == 'right':
@@ -61,6 +67,9 @@ class Player(pygame.sprite.Sprite):
 
     def catch(self):
         self.score += 1
+        self.image.fill((0, 255, 0))
+
+
 
 
 ball = Ball()
@@ -92,17 +101,21 @@ while keepGoing:
         player.update('right')
     ball.update()
 
+    # Collision Detection
     if player.rect.colliderect(ball.rect):
-        ball.speed = -ball.speed
+        ball.update(hit=True)
         player.catch()
 
     if ball.rect.top > size[1]:
         ball.destroy()
+        # create new ball
         ball = Ball()
         sprite_group.add(ball)
 
     screen.blit(background, (0, 0))
     sprite_group.draw(screen)
-    text = font.render("Punkte: " + str(player.score), 1, 'black')
-    screen.blit(text, (20, 20))
+    punkte = font.render(u"Punkte: " + str(player.score), 1, 'black')
+    screen.blit(punkte, (20, 20))
+    level = font.render(u"Level: " + str(player.level), 1, 'black')
+    screen.blit(level, (20, 40))
     pygame.display.update()

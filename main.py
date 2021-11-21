@@ -5,8 +5,8 @@ __author__ = 'simmering'
 
 # IDEA
 # Import and Initialization
-import pygame
 import random
+import pygame
 pygame.init()
 
 # Display configuration
@@ -83,17 +83,17 @@ font = pygame.font.Font(None, 25)
 
 # Action --> ALTER
 # Assign Variables
-keepGoing = True
+KeepGoing = True
 clock = pygame.time.Clock()
 
 # Loop
-while keepGoing:
+while KeepGoing:
     # Timer
     clock.tick(30)
     # Event Handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            keepGoing = False
+            KeepGoing = False
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         player.update('left')
@@ -114,8 +114,8 @@ while keepGoing:
 
     screen.blit(background, (0, 0))
     sprite_group.draw(screen)
-    punkte = font.render(u"Punkte: " + str(player.score), 1, 'black')
+    punkte = font.render("Punkte: " + str(player.score), 1, 'black')
     screen.blit(punkte, (20, 20))
-    level = font.render(u"Level: " + str(player.level), 1, 'black')
+    level = font.render("Level: " + str(player.level), 1, 'black')
     screen.blit(level, (20, 40))
     pygame.display.update()

@@ -12,47 +12,59 @@ def instantiate_game_entities(game):
 
 def create_sprite_group(ball, player):
     sprite_group = pygame.sprite.Group()
-    sprite_group.add(ball)
-    sprite_group.add(player)
+    sprite_group.add(ball, player)
     return sprite_group
 
 
 def display_running_game(game, player, sprite_group):
     sprite_group.draw(game.screen)
-    points = game.font.render("Punkte: " + str(player.score), True, game.fg_color)
-    game.screen.blit(points, (20, 20))
+    score_text = render_score_text(game, player)
+    game.screen.blit(score_text, (game.buffer, game.buffer))
+
+
+def render_score_text(game, player):
+    score_text = game.font.render("Punkte: " + str(player.score), True, game.fg_color)
+    return score_text
 
 
 def show_end_screen(game, player):
     game.screen.fill(game.bg_color)
-    game_over, points, try_again = render_end_screen_text(game.font, player)
-    blit_end_screen_text(game, game_over, points, try_again)
-
-
-def blit_end_screen_text(game, game_over, points, try_again):
-    game.screen.blit(game_over, center_plus_x(game, game_over, -game.font_size))
-    game.screen.blit(try_again, center_plus_x(game, try_again))
-    game.screen.blit(points, center_plus_x(game, points, game.font_size))
+    end_screen_texts = render_end_screen_text(game.font, player)
+    blit_end_screen_text(game, end_screen_texts)
 
 
 def render_end_screen_text(font, player):
-    game_over = font.render('Game Over', True, 'black')
-    try_again = font.render('Press SPACEBAR key to try again', True, 'black')
-    points = font.render("Punkte: " + str(player.score), True, 'black')
-    return game_over, points, try_again
+    end_screen_texts = {'game_over': font.render('Game Over', True, 'black'),
+                        'end_score': font.render("Punkte: " + str(player.score), True, 'black'),
+                        'try_again': font.render('Press SPACEBAR key to try again', True, 'black')}
+    return end_screen_texts
+
+
+def blit_end_screen_text(game, end_screen_text):
+    game.screen.blit(end_screen_text['game_over'],
+                     center_text_plus_x(game, end_screen_text['game_over'], -game.font_size))
+    game.screen.blit(end_screen_text['end_score'],
+                     center_text_plus_x(game, end_screen_text['end_score']))
+    game.screen.blit(end_screen_text['try_again'],
+                     center_text_plus_x(game, end_screen_text['try_again'], game.font_size))
 
 
 def check_for_restart(player, ball):
     keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE]:
-        game_over = False
+        game_running = True
         restart(player, ball)
-        return game_over
+        return game_running
 
 
 def restart(player, ball):
     player.restart()
     ball.restart()
+
+
+def update_entities(ball, player):
+    move_player(player)
+    ball.update()
 
 
 def move_player(player):
@@ -76,15 +88,14 @@ def detect_collision(ball, player):
         player.update_score()
 
 
-def detect_game_over(game, ball, game_over):
+def detect_game_over(game, ball, game_running):
     if ball.rect.top > game.screen_height:
-        game_over = True
-    return game_over
+        game_running = False
+    return game_running
 
 
-def center_plus_x(game, text, x=0):
+def center_text_plus_x(game, text, x=0):
     return game.screen_width / 2 - text.get_width() / 2, (game.screen_height / 2 - text.get_height() / 2) + x
-
 
 
 def check_python_version():

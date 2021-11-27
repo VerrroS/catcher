@@ -1,3 +1,4 @@
+from sys import version_info
 import pygame
 from settings import WHITE, SCREEN_HEIGHT, SCREEN_WIDTH, CAPTION, FONT_SIZE, BLACK
 from entities import Ball, Player

@@ -17,6 +17,7 @@ def run_game():
     ball is lost to the bottom of the screen, the game is over and the end screen is displayed. The player can restart
     the game by pressing the space bar.
     """
+    gf.check_python_version()
     pygame.init()
     game = Game()
     ball, player, sprite_group = gf.instantiate_game_entities(game)

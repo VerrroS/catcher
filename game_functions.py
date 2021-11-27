@@ -100,6 +100,9 @@ def render_end_screen_text(font, player):
     points = font.render("Punkte: " + str(player.score), True, 'black')
     return game_over, points, try_again
 
+def check_python_version():
+    if version_info[0] < 3:
+        raise ImportError('Only Python 3 is supported.')
 
 def center_plus_x(text, x=0):
     return SCREEN_WIDTH / 2 - text.get_width() / 2, (SCREEN_HEIGHT / 2 - text.get_height() / 2)+x

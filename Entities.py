@@ -1,19 +1,21 @@
 import random
 import pygame
 from pygame.sprite import Sprite
-from settings import BLACK, GREEN, SCREEN_HEIGHT, SCREEN_WIDTH, SPEED, BUFFER
+
 
 class Entity(Sprite):
     """
     Class to represent an entity
 
     """
-    def __init__(self, screen, width, height):
+    def __init__(self, settings, width, height):
         Sprite.__init__(self)
         self.image = pygame.Surface((width, height))
         self.rect = self.image.get_rect()
-        self.screen = screen
-        self.image.fill(BLACK)
+        self.screen_width = settings.screen_width
+        self.screen_height = settings.screen_height
+        self.fg_color = settings.fg_color
+        self.image.fill(self.fg_color)
 
 
 class Ball(Entity):
@@ -25,15 +27,15 @@ class Ball(Entity):
     update() - updates the ball's position
     restart() - resets the ball's position
     """
-    def __init__(self, screen):
-        Entity.__init__(self, screen, 20, 20)
-        self.rect.left = random.randint(0 + BUFFER, SCREEN_WIDTH- BUFFER)
+    def __init__(self, game):
+        Entity.__init__(self, game, 20, 20)
+        self.rect.left = random.randint(0 + game.buffer, self.screen_width - game.buffer)
         self.rect.top = 0
-        self.vel_x = SPEED
-        self.vel_y = SPEED
+        self.vel_x = game.ball_speed
+        self.vel_y = game.ball_speed
 
     def update(self, hit=False):
-        if self.rect.right >= SCREEN_WIDTH or self.rect.left <= 0:
+        if self.rect.right >= self.screen_width or self.rect.left <= 0:
             self.vel_x *= -1
         if self.rect.top < 0 or hit:
             self.vel_y *= -1
@@ -41,7 +43,7 @@ class Ball(Entity):
         self.rect.left += self.vel_x
 
     def restart(self):
-        self.rect.left = random.randint(0, SCREEN_WIDTH)
+        self.rect.left = random.randint(0, self.screen_width)
         self.rect.top = 0
 
 
@@ -58,15 +60,16 @@ class Player(Entity):
     update_score() - updates the player's score
     restart() - resets the player's position and score
     """
-    def __init__(self, screen):
-        Entity.__init__(self, screen, 50, 50)
-        self.rect.top = SCREEN_HEIGHT - 20
-        self.rect.left = SCREEN_WIDTH/2
-        self.speed = 10
+    def __init__(self, game):
+        Entity.__init__(self, game, 50, 50)
+        self.rect.top = self.screen_height - 20
+        self.rect.left = self.screen_width/2
+        self.speed = game.player_speed
         self.score = 0
+        self.hl_color = game.hl_color
 
     def update(self, direction):
-        self.image.fill(BLACK)
+        self.image.fill(self.fg_color)
         self.move(direction)
 
     def move(self, direction):
@@ -77,7 +80,7 @@ class Player(Entity):
 
     def move_right(self):
         self.rect.left += self.speed
-        self.rect.right = min(self.rect.right, SCREEN_WIDTH)
+        self.rect.right = min(self.rect.right, self.screen_width)
 
     def move_left(self):
         self.rect.left -= self.speed
@@ -85,9 +88,9 @@ class Player(Entity):
 
     def update_score(self):
         self.score += 1
-        self.image.fill(GREEN)
+        self.image.fill(self.hl_color)
 
     def restart(self):
-        self.rect.top = SCREEN_HEIGHT - 20
-        self.rect.left = SCREEN_WIDTH/2
+        self.rect.top = self.screen_height - 20
+        self.rect.left = self.screen_width/2
         self.score = 0

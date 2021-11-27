@@ -12,6 +12,10 @@ def run_game():
     """
     run the game
 
+    This function is the main function of the game. It checks the python version, initializes pygame, initializes the
+    display and runs the game loop. While the loop is running , it checks for events and updates the game. When the
+    ball is lost to the bottom of the screen, the game is over and the end screen is displayed. The player can restart
+    the game by pressing the space bar.
     """
     pygame.init()
     background, font, screen = gf.set_up_screen()

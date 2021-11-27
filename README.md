@@ -1,8 +1,8 @@
 # catcher
 simple ping pong game
 
-##Play
-
+#Play
+-----------
 To play execute main.py
 
 Requirements

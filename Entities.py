@@ -8,14 +8,15 @@ class Entity(Sprite):
     Class to represent an entity
 
     """
-    def __init__(self, settings, width, height):
+    def __init__(self, game, entity_size):
         Sprite.__init__(self)
-        self.image = pygame.Surface((width, height))
+        self.image = pygame.Surface(entity_size)
         self.rect = self.image.get_rect()
-        self.screen_width = settings.screen_width
-        self.screen_height = settings.screen_height
-        self.fg_color = settings.fg_color
+        self.screen_width = game.screen_width
+        self.screen_height = game.screen_height
+        self.fg_color = game.fg_color
         self.image.fill(self.fg_color)
+        self.buffer = game.buffer
 
 
 class Ball(Entity):
@@ -28,8 +29,8 @@ class Ball(Entity):
     restart() - resets the ball's position
     """
     def __init__(self, game):
-        Entity.__init__(self, game, 20, 20)
-        self.rect.left = random.randint(0 + game.buffer, self.screen_width - game.buffer)
+        Entity.__init__(self, game, game.ball_size)
+        self.rect.left = random.randint(0 + game.buffer, self.screen_width - self.buffer)
         self.rect.top = 0
         self.vel_x = game.ball_speed
         self.vel_y = game.ball_speed
@@ -61,8 +62,8 @@ class Player(Entity):
     restart() - resets the player's position and score
     """
     def __init__(self, game):
-        Entity.__init__(self, game, 50, 50)
-        self.rect.top = self.screen_height - 20
+        Entity.__init__(self, game, game.player_size)
+        self.rect.top = self.screen_height-self.buffer
         self.rect.left = self.screen_width/2
         self.speed = game.player_speed
         self.score = 0
@@ -91,6 +92,6 @@ class Player(Entity):
         self.image.fill(self.hl_color)
 
     def restart(self):
-        self.rect.top = self.screen_height - 20
+        self.rect.top = self.screen_height-self.buffer
         self.rect.left = self.screen_width/2
         self.score = 0

@@ -10,8 +10,8 @@ class Settings:
         self.fg_color = (0, 0, 0)
         self.bg_color = (255, 255, 255)
         self.hl_color = (0, 255, 0)
-        self.screen_width = 320
-        self.screen_height = 240
+        self.screen_width = 640
+        self.screen_height = 480
         self.top_left_corner = (0, 0)
         self.buffer = 15
         self.fps = 30
@@ -19,6 +19,8 @@ class Settings:
         self.ball_speed = 5
         self.player_speed = 10
         self.font_size = 30
+        self.player_size = (50, 30)
+        self.ball_size = (20, 20)
 
 
 class Game(Settings):

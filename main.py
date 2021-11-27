@@ -23,7 +23,7 @@ def run_game():
     ball, player, sprite_group = gf.instantiate_game_entities(game)
 
     program_running = True
-    game_over = False
+    game_running = True
 
     clock = pygame.time.Clock()
 
@@ -31,18 +31,17 @@ def run_game():
         # Timer
         clock.tick(game.fps)
         program_running = gf.check_for_quit(program_running)
-        gf.move_player(player)
-        ball.update()
+        gf.update_entities(ball, player)
         gf.detect_collision(ball, player)
+        game_running = gf.detect_game_over(game, ball, game_running)
 
         game.screen.blit(game.background, game.top_left_corner)
-        game_over = gf.detect_game_over(game, ball, game_over)
 
-        if game_over:
-            gf.show_end_screen(game, player)
-            game_over = gf.check_for_restart(player, ball)
-        else:
+        if game_running:
             gf.display_running_game(game, player, sprite_group)
+        else:
+            gf.show_end_screen(game, player)
+            game_running = gf.check_for_restart(player, ball)
 
         pygame.display.update()
 

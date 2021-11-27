@@ -47,4 +47,5 @@ def run_game():
         pygame.display.update()
 
 
-run_game()
+if __name__ == '__main__':
+    run_game()

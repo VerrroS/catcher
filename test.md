@@ -5,3 +5,4 @@
  - push
  - pull
  - merge
+ - diff

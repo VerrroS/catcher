@@ -1,6 +1,7 @@
 # Testing git
- Trying out git funktions
+ Trying out git functions
  - add
  - commit
  - push
  - pull
+ - merge

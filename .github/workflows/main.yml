@@ -16,6 +16,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
+      - name: Install pydoc
+        run: |
+          pip install pydoc
       - name: test
         run: |
           make all

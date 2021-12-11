@@ -19,4 +19,4 @@ jobs:
           python-version: 3.7
       - name: test
         run: |
-          echo this is a test
+          make all

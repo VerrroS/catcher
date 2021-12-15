@@ -86,6 +86,7 @@ def detect_collision(ball, player):
     if player.rect.colliderect(ball.rect):
         ball.update(hit=True)
         player.update_score()
+        return True
 
 
 def detect_game_over(game, ball, game_running):

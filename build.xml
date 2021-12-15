@@ -1,0 +1,114 @@
+<!--Build with ant-->
+<project basedir="." name="catcher" default="ALL">
+  <description>
+    Catcher Pygame build file
+  </description>
+
+    <!--Default target-->
+    <target name="ALL" depends="setup,doc,unittest,make_exe,run_exe">
+    </target>
+
+    <!--Cleaning old dist and doc folders-->
+    <target name="clean">
+        <delete dir="doc" />
+        <delete dir="dist" />
+        <echo message="Cleaned"/>
+    </target>
+
+    <!--Install requirements-->
+    <target name="setup">
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="pip install -r requirements.txt"/>
+        </exec>
+    </target>
+
+    <!--Test Code with unittests-->
+    <target name="unittest">
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="py -m unittest discover"/>
+        </exec>
+    </target>
+
+    <!--Build the executable-->
+    <target name="make_exe" depends="clean">
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="py setup.py py2exe"/>
+        </exec>
+    </target>
+
+    <!--Run the executable-->
+    <target name="run_exe" depends="make_exe">
+        <echo message="Running main.exe"/>
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="dist\main.exe"/>
+
+    <!--Generate documentation-->
+
+    <target name="make_doc_dir" depends="clean">
+        <mkdir dir="doc"/>
+    </target>
+
+
+    <target name="generate_main_doc" >
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="pydoc -w main"/>
+        </exec>
+    </target>
+
+    <target name="generate_game_doc">
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="pydoc -w game"/>
+        </exec>
+    </target>
+
+    <target name="generate_gf_doc">
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="pydoc -w game_functions"/>
+        </exec>
+    </target>
+
+    <target name="generate_entities_doc">
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="pydoc -w entities"/>
+        </exec>
+    </target>
+
+    <target name="generate_pygame_doc">
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="pydoc -w pygame"/>
+        </exec>
+    </target>
+
+    <target name="generate_doc" depends="generate_main_doc, generate_game_doc, generate_gf_doc, generate_entities_doc, generate_pygame_doc">
+    </target>
+
+    <target name="copy_to_doc_dir" depends="make_doc_dir">
+        <copy todir="doc">
+            <fileset dir=".">
+                <include name="*.html"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean_doc" depends="copy_to_doc_dir">
+        <delete>
+            <fileset dir="." includes="*.html"/>
+        </delete>
+    </target>
+
+    <target name="doc" depends="make_doc_dir, generate_doc, clean_doc">
+        <echo message="Documentation generated"/>
+    </target>
+
+        </exec>
+    </target>
+</project>

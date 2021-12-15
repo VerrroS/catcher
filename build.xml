@@ -5,7 +5,7 @@
   </description>
 
     <!--Default target-->
-    <target name="ALL" depends="setup,doc,unittest,make_exe,run_exe">
+    <target name="ALL" depends="setup,doc,unittest,make_exe">
     </target>
 
     <!--Cleaning old dist and doc folders-->
@@ -45,7 +45,8 @@
         <exec executable="cmd">
             <arg value="/c"/>
             <arg value="dist\main.exe"/>
-
+        </exec>
+    </target>
     <!--Generate documentation-->
 
     <target name="make_doc_dir" depends="clean">
@@ -109,6 +110,4 @@
         <echo message="Documentation generated"/>
     </target>
 
-        </exec>
-    </target>
 </project>

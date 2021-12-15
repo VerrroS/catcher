@@ -47,12 +47,11 @@
             <arg value="dist\main.exe"/>
         </exec>
     </target>
-    <!--Generate documentation-->
 
+    <!--Generate documentation-->
     <target name="make_doc_dir" depends="clean">
         <mkdir dir="doc"/>
     </target>
-
 
     <target name="generate_main_doc" >
         <exec executable="cmd">
@@ -74,7 +73,6 @@
             <arg value="pydoc -w game_functions"/>
         </exec>
     </target>
-
     <target name="generate_entities_doc">
         <exec executable="cmd">
             <arg value="/c"/>
@@ -89,7 +87,9 @@
         </exec>
     </target>
 
-    <target name="generate_doc" depends="generate_main_doc, generate_game_doc, generate_gf_doc, generate_entities_doc, generate_pygame_doc">
+    <target name="generate_doc" depends="generate_main_doc,generate_game_doc,
+                                         generate_gf_doc, generate_entities_doc,
+                                         generate_pygame_doc">
     </target>
 
     <target name="copy_to_doc_dir" depends="make_doc_dir">

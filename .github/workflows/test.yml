@@ -1,26 +1,22 @@
-name: Build_with_ant
+name: testing
+on: push
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-    
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Install py2exe
+      - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
+          pip install pylint
           pip install py2exe
       - name: Set up JDK 11
         uses: actions/setup-java@v2
@@ -29,4 +25,7 @@ jobs:
           distribution: 'adopt'
       - name: build with ant
         run: |
-          ant
+          ant unittest
+          ant make_exe
+      - name: PyBuilder Action
+        uses: pybuilder/build@v5

@@ -1,4 +1,4 @@
-name: Build_with_make
+name: Build_with_ant
 
 # Controls when the workflow will run
 on:

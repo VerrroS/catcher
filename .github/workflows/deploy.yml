@@ -19,13 +19,13 @@ jobs:
       - uses: actions/checkout@v2
       - name : create doc
         run: |
-        echo created doc
+          echo created doc
       - name: publish doc
         run: |
-        echo published doc
+          echo published doc
       - name: deploy exe
         run: |
-        echo deployed exe
+          echo deployed exe
 
 
 

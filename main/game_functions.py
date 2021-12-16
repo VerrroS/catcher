@@ -1,6 +1,6 @@
 from sys import version_info
 import pygame
-from main.entities import Ball, Player
+from entities import Ball, Player
 
 
 def instantiate_game_entities(game):

@@ -1,7 +1,7 @@
 name: ui_testing
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 5 * * *"
 
 jobs:
   build:

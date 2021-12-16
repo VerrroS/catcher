@@ -3,9 +3,9 @@
 
 import unittest
 import pygame
-from game import Game
-import game_functions as gf
-from entities import Player, Ball
+from main.game import Game
+import main.game_functions as gf
+from main.entities import Player, Ball
 
 
 class TestGf(unittest.TestCase):

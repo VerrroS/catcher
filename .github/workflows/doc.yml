@@ -22,6 +22,6 @@ jobs:
       - name: Upload doc to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: doc
+          target: docs
           credentials: ${{ secrets.gdrive_credentials }}
           parent_folder_id: ${{ secrets.folder_Id }}

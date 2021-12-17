@@ -1,11 +1,11 @@
-name: ui_testing
+name: gui_testing
 on:
   schedule:
     - cron: "0 5 * * *"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: UI Testing
         run: |

@@ -46,10 +46,18 @@ jobs:
           directory: 'main'
           path: 'dist'
 
+      - name: Cpy release to basedir
+        run: |
+          dir
+          cd main
+          dir
+          cd dist
+          dir
+
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: main_dist_release.zip
+          target: main\dist\release.zip
           credentials: ${{ secrets.gdrive_credentials }}
           parent_folder_id: ${{ secrets.folder_Id }}
 

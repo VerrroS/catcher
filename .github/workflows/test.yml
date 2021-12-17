@@ -15,13 +15,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install pylint
           pip install py2exe
+      - name: Pybuilder
+        run: |
+          pip install pybuilder
+          pyb
       - name: build exe
         run: |
           py setup_exe.py py2exe
       - name: run exe
         run: |
           dist/main.exe
-      - name: Pybuilder
-        run: |
-          pip install pybuilder
-          pyb

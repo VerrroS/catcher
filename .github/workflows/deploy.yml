@@ -37,10 +37,15 @@ jobs:
         run: |
           cd main
           py setup_exe.py py2exe
-      - name: zip up dist
-        uses: montudor/action-zip@v1
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
         with:
-          args: zip -qq -r dist.zip dist
+          type: 'zip'
+          filename: 'release.zip'
+          directory: 'dist'
+
+
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:

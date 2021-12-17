@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name : create doc
@@ -23,9 +23,28 @@ jobs:
       - name: publish doc
         run: |
           echo published doc
-      - name: deploy exe
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
         run: |
-          echo deployed exe
+          python -m pip install --upgrade pip
+          pip install py2exe
+          pip install -r requirements.txt
+      - name: build exe
+        run: |
+          cd main
+          py setup_exe.py py2exe
+
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.gdrive_credentials }}
+          filename: "main\dist\main.exe"
+          folderId: ${{ secrets.folder_Id }}
+          overwrite: "true"
 
 
 

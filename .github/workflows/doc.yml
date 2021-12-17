@@ -19,9 +19,15 @@ jobs:
           src_path: 'main'
           dst_path: 'docs'
 
-      - name: Upload To Github Release
-        uses: xresloader/upload-to-github-release@v1.3.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: test
+        run: |
+          dir
+          cd docs
+          dir
+
+      - name: Upload docs to Google Drive
+        uses: willo32/google-drive-upload-action@v1
         with:
-          file: "docs"
+          target: docs/*.md
+          credentials: ${{ secrets.gdrive_credentials }}
+          parent_folder_id: ${{ secrets.folder_Id }}

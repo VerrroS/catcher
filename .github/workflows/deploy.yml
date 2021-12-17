@@ -17,12 +17,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - name : create doc
-        run: |
-          echo created doc
-      - name: publish doc
-        run: |
-          echo published doc
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -33,6 +27,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install py2exe
           pip install -r requirements.txt
+
+      - name: Python Markdown Documentation
+        uses: jbheard/markdown-docs@v0.1
+        with:
+          src_path: 'main'
+          dst_path: 'docs'
+
+      - name: Upload doc to Google Drive
+        uses: willo32/google-drive-upload-action@v1
+        with:
+          target: doc
+          credentials: ${{ secrets.gdrive_credentials }}
+          parent_folder_id: ${{ secrets.folder_Id }}
+
       - name: build exe
         run: |
           cd main
@@ -46,15 +54,7 @@ jobs:
           directory: 'main'
           path: 'dist'
 
-      - name: Cpy release to basedir
-        run: |
-          dir
-          cd main
-          dir
-          cd dist
-          dir
-
-      - name: Upload a file to Google Drive
+      - name: Upload release.zip to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
           target: main\release.zip

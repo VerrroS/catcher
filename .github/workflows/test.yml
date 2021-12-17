@@ -22,6 +22,7 @@ jobs:
           pyb
       - name: build exe
         run: |
+          cd main
           py setup_exe.py py2exe
       - name: run exe
         run: |

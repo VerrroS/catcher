@@ -1,0 +1,27 @@
+name: Doc
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Python Markdown Documentation
+        uses: jbheard/markdown-docs@v0.1
+        with:
+          src_path: 'main'
+          dst_path: 'docs'
+
+      - name: Upload doc to Google Drive
+        uses: willo32/google-drive-upload-action@v1
+        with:
+          target: doc
+          credentials: ${{ secrets.gdrive_credentials }}
+          parent_folder_id: ${{ secrets.folder_Id }}

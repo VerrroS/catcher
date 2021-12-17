@@ -27,4 +27,4 @@ jobs:
       - name: run exe
         run: |
           cd main\dist
-          main.exe
+          main

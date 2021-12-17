@@ -39,10 +39,12 @@ jobs:
           py setup_exe.py py2exe
 
       - name: Upload to gdrive
+        run: |
+          cd main\dist
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.gdrive_credentials }}
-          filename: "main\dist\main.exe"
+          filename: "main.exe"
           folderId: ${{ secrets.folder_Id }}
           overwrite: "true"
 

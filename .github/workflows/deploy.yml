@@ -43,12 +43,13 @@ jobs:
         with:
           type: 'zip'
           filename: 'release.zip'
-          directory: 'main\\dist'
+          directory: 'main'
+          path: 'dist'
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: "release.zip"
+          target: "main\dist\release.zip"
           credentials: ${{ secrets.gdrive_credentials }}
           parent_folder_id: ${{ secrets.folder_Id }}
 

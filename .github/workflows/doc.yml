@@ -24,4 +24,4 @@ jobs:
         with:
           target: docs
           credentials: ${{ secrets.gdrive_credentials }}
-          parent_folder_id: ${{ secrets.folder_Id }}
+          parent_folder_id: ${{ secrets.doc_folder_Id }}

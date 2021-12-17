@@ -43,7 +43,7 @@ jobs:
         with:
           type: 'zip'
           filename: 'release.zip'
-          directory: 'dist'
+          directory: 'main\\dist'
 
 
       - name: Upload to gdrive

@@ -19,15 +19,9 @@ jobs:
           src_path: 'main'
           dst_path: 'docs'
 
-      - name: test
-        run: |
-          dir
-          cd docs
-          dir
-
       - name: Upload docs to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: docs/*.md
+          target: docs/
           credentials: ${{ secrets.gdrive_credentials }}
           parent_folder_id: ${{ secrets.folder_Id }}

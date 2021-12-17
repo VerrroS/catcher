@@ -19,7 +19,7 @@ jobs:
         run: |
           py setup_exe.py py2exe
       - name: run exe
-        run |
+        run: |
         dist/main.exe
         ^C
       - name: Pybuilder

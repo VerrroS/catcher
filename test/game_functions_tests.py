@@ -2,18 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-import pygame
-from main.game import Game
-import main.game_functions as gf
-from main.entities import Player, Ball
+
 
 
 class TestGf(unittest.TestCase):
     def setUp(self):
-        pygame.init()
-        self.game = Game()
-        self.player = Player(self.game)
-        self.ball = Ball(self.game)
+        pass
 
     #def test_collision(self):
         #self.player.rect.x = 0

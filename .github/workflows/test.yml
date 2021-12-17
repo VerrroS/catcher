@@ -21,7 +21,6 @@ jobs:
       - name: run exe
         run: |
           dist/main.exe
-          ^C
       - name: Pybuilder
         run: |
           pip install pybuilder

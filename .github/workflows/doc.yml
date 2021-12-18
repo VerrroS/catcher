@@ -9,21 +9,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Python Markdown Documentation
-        uses: jbheard/markdown-docs@v0.1
-        with:
-          src_path: 'main'
-          dst_path: 'docs'
-
-      - name: Upload to GitHub
-        uses: LasyIsLazy/github-upload-action@v0.2.0
-        with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
-          file-path: ./docs
-          owner: VerrroS
-          repo: catcher
-          commit-message: 'Update docs'
-          branch-name: doc
-
+     - name: cancelling
+       uses: andymckay/cancel-action@0.2

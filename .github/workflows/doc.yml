@@ -23,7 +23,7 @@ jobs:
         uses: LasyIsLazy/github-upload-action@v0.2.0
         with:
           access-token: ${{ secrets.ACCESS_TOKEN }}
-          file-path: docs
+          file-path: ./docs
           owner: VerrroS
           repo: catcher
           commit-message: 'Update docs'

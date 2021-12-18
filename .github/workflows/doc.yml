@@ -19,9 +19,11 @@ jobs:
           src_path: 'main'
           dst_path: 'docs'
 
-      - name: Upload docs to Google Drive
-        uses: willo32/google-drive-upload-action@v1
+      - name: Upload to GitHub
+        uses: LasyIsLazy/github-upload-action@v0.2.0
         with:
-          target: README.md
-          credentials: ${{ secrets.gdrive_credentials }}
-          parent_folder_id: ${{ secrets.doc_folder_Id }}
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          file-path: docs
+          owner: VerrroS
+          repo: catcher
+

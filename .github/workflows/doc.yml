@@ -26,4 +26,6 @@ jobs:
           file-path: docs
           owner: VerrroS
           repo: catcher
+          commit-message: 'Update docs'
+          branch-name: master
 
